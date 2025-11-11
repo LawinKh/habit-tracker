@@ -1,0 +1,137 @@
+<!doctype html> <!-- Browser learns this is HTML5 -->
+<html lang="en"> <!-- html is the root element, language set to English -->
+
+<head> <!-- <head> section contains metadata which is not visible on web pages -->
+  <!-- Additional: The head tag contains essential setup for the page -->
+  <!-- Enables or supports all characters for use -->
+  <meta charset="utf-8">
+  <!-- Viewport meta tag helps making pages responsive on mobile screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Visible title found on the browser tab.  -->
+  <title>Habit Tracker</title>
+  <!-- This links to the external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Internal CSS for minor CSS rulesets -->
+  <style>
+    /* 
+    .btn = Selector, :hover = Pseudo-class.
+    On hover, the button becomes brighter due to code {filter:brightness(1.05)} 
+    https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/filter-function/brightness */
+    .btn:hover {
+      filter: brightness(1.05)
+    }
+
+    /* The 1px height and width make the element invisible. 
+    Clip with low px number (1px) hides the element but for accessibility keeps it for screen readers.
+    Clip is used only for elements that have absolute positioning. Link: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/clip
+    The form label "Habit name" is hidden but kept for accessibility reasons.*/
+    .sr-only {
+      position: absolute;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px)
+    }
+  </style>
+</head>
+
+<!-- Here begins the point where content becomes visible on websites. -->
+<body>
+  <!-- Additional: Content inside <body> element is rendered to be visible on websites -->
+
+  <!-- Semantic HTML <main> is the main container. Also, centering is applied with restricted width size (980px) -->
+  <main style="max-width: 980px; margin: 0 auto; padding: 20px;"> 
+    
+    <!-- Semantic HTML <header> tag is used with gradient background inline CSS -->
+    <header style="background: linear-gradient(135deg,#019dd5,#00bfff); color:#fff; padding: 24px; border-radius: 12px;">
+      <!-- The main header or title on website. Margin changes applied. -->
+      <h1 style="margin: 0 0 6px;">Habit Tracker</h1> 
+      <p style="margin: 0;">Build habits, keep momentum, achieve lasting change</p> <!-- Tagline -->
+    </header> 
+
+    <!-- Semantic HTML <section> element with inline CSS (colors, spacing, and borders) -->
+    <!--aria-live="polite" makes the tip box a live region. Screen readers announce updates or changes for 
+    idle users (avoids interrupting user). -->
+    <section style="background: #e8f9ff; border-left: 6px solid #019dd5; padding: 12px; border-radius: 8px; margin: 12px 0 16px;"
+      aria-live="polite"> <!--aria-live="polite" = https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Guides/Live_regions -->
+      <!-- Below produces a tip box that has a blue border to the left side and light cyan or light sky blue background color -->
+      <strong>Tip:</strong> Click a day cell to toggle. Use Tab to focus, then Space or Enter to toggle.
+    </section>
+
+    <!--Another Semantic HTML <section> element containing the <h2> header and form related inputs like labels and buttons -->
+    <!-- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby -->
+     <!-- aria-labelledby="add-title" identifies the h2 with id="add-title". Promotes accessibility -->
+    <section
+      style="background:#fff; border-radius: 12px; padding: 18px; margin: 12px 0; box-shadow: 0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);"
+      aria-labelledby="add-title"> <!-- Add habit form section -->
+      <h2 id="add-title" style="margin:0 0 8px;color:#0b3b58;">Add a habit</h2> <!-- Title of the section. -->
+      <form id="habit-form" style="display: flex; gap: 8px; align-items: center;"> <!-- Form for adding new habits. Flexbox positioning applied. -->
+        <label for="habit-name" class="sr-only">Habit name</label> <!-- This is a hidden label for accessibility, read lines 24-34 for more info. -->
+        <input id="habit-name" name="habitName" type="text" required placeholder="e.g. Drink two litres of water"
+          autocomplete="off" style="flex: 1; padding: 10px 12px; border: 1px solid #dbe7f0; border-radius: 8px; outline: none;">
+        
+          <!-- Below is the submit button labeled as "Add" -->
+        <button type="submit" class="btn"
+          style="background:#019dd5; color:#fff; border:none; padding: 10px 14px; border-radius:8px; cursor:pointer;">Add</button>
+      </form>
+    </section>
+    
+    <!-- Semantic HTML <section> again. Contains again "aria-labelledby="tracker-title"" for accessibility,   -->
+    <section
+      style="background: #fff; border-radius: 12px; padding:18px; margin:12px 0; box-shadow: 0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);"
+      aria-labelledby="tracker-title"> <!-- This section contains the main tracker grid -->
+      <div style="display: flex; align-items: baseline; justify-content:space-between; gap: 12px; flex-wrap: wrap;"> <!--Flexbox CSS applied, spacing and wrap... -->
+        <h2 id="tracker-title" style="margin:0;color:#0b3b58;">This week</h2> <!-- The section's title linked to aria-labelledby="tracker-title" also -->
+        <div id="week-range" style="color:#66788a;"></div> <!-- The date range is filled by JS -->
+      </div>
+      <div style="overflow-x: auto; margin-top: 8px;"> <!-- overflow-x: auto; enables scrolling if required https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-x -->
+        <!-- The below part contains the grid header related content -->
+        <div
+          style="display:grid; grid-template-columns: 1.6fr repeat(7,.9fr) .8fr 1fr; align-items:center; border-bottom: 1px solid #eef2f6; background: #f8fbfe; font-weight: 600;">
+          <div style="padding: 10px; color: #0b3b58;">Habit</div>
+          <div style="padding: 10px; color: #0b3b58;">D-6</div>
+          <div style="padding: 10px; color: #0b3b58;">D-5</div>
+          <div style="padding: 10px; color: #0b3b58;">D-4</div>
+          <div style="padding: 10px; color: #0b3b58;">D-3</div>
+          <div style="padding: 10px; color: #0b3b58;">D-2</div>
+          <div style="padding: 10px; color: #0b3b58;">Yesterday</div>
+          <div style="padding: 10px; color: #0b3b58;">Today</div>
+          <div style="padding: 10px; color: #0b3b58;">Streak</div>
+          <div style="padding: 10px; color: #0b3b58;">Actions</div>
+        </div>
+        <div id="rows"></div> <!-- The below part is for JS to insert habit rows -->
+      </div>
+    </section>
+
+    <!-- The below section contains critical data management features i.e. JSON related content. Here HTML and CSS for adding the buttons etc. -->
+    <!-- Once again aria-labelledby="manage-title" for accessibility -->
+    <section
+      style="background: #fff; border-radius: 12px; padding: 18px; margin: 12px 0; box-shadow: 0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);"
+      aria-labelledby="manage-title">
+      <h2 id="manage-title" style="margin:0 0 8px;color:#0b3b58;">Manage data</h2>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <!-- button components below -->
+        <button id="export-json"
+          style="background: #eef7ff; color: #046f95; border:none; padding: 10px 14px; border-radius: 8px; cursor:pointer;">Export
+          JSON</button>
+        <label
+          style="display: inline-flex; align-items:center; gap: 8px; background: #eef7ff; color: #046f95; border:none; padding: 10px 14px; border-radius: 8px; cursor:pointer;">
+          Import JSON
+          <input id="import-json" type="file" accept="application/json" hidden> <!-- Hidden file input. As I understood, it is used so that a custom-styled label/button can open the native file picker. But it is kept in the DOM for scripting; accept="application/json" limits selectable files. -->
+        </label>
+        <button id="reset-all"
+          style="background:#c71f23;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;">Reset
+          all</button>
+      </div>
+      <p style="color:#66788a;font-size:.95rem;margin:10px 0 0;">Data is stored locally in your browser using
+        localStorage.</p>
+    </section>
+    <footer style="color:#66788a;font-size:.95rem;margin:10px 0 0;">Built with HTML, CSS and JavaScript. No server
+      required.</footer>
+  </main>
+
+  <!-- Links the app.js file to this index.html. Defer enables the HTML and CSS content to load/render first and after that the JS functions and features are rendered on website. This improves loading the webpage main content faster. -->
+  <script src="app.js" defer></script> 
+</body>
+
+</html>
