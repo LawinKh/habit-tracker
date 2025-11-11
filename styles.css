@@ -1,0 +1,43 @@
+:root { /* :root targets the <html> element; declare CSS custom properties here so they are available globally within the document. */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:root */
+    --brand-1: #019dd5;
+    /* Primary blue colour */
+    --brand-2: #00bfff;
+    /* Lighter blue */
+    --ink: #0b3b58;
+    /* Dark text */
+    --muted: #66788a;
+    /* Light text */
+    --ring: #b3e6ff;
+    /* Focus outline */
+}
+
+
+
+/* Box-sizing changed to border-box for making box model layout calculations easier. */
+* {
+    box-sizing: border-box
+}
+
+/* Ruleset below makes content inside <body> element to have 100% viewport height */
+html,
+body {
+    height: 100%
+}
+
+/* Custom styling to the body section */
+body {
+    margin: 0; /* Removes default margin which helps own layout applications */
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    /* Font stack with many types of fonts acting as backup fonts. First functional one takes priority by browser */
+    background: #f0f4f8; /* Applies a light background to the website */
+    color: #333; /* main text colour */
+    line-height: 1.6; /* Supports readability by adding space between the lines */
+}
+
+/* Improves accessibility by adding blue focus ring surrounding the element when focus applied */
+button:focus,
+input:focus {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px
+}
