@@ -10,9 +10,52 @@
     /* Light text */
     --ring: #b3e6ff;
     /* Focus outline */
+    /* default -> light values */
+    --app-bg: #f0f4f8;
+    --app-text: #0b3b58;
+    --card-bg: #fff;
 }
 
+/* Global dark-mode: surfaces, text & inline style overrides */
+[data-bs-theme="dark"] *:not(header):not(header *),
+[data-bs-theme="dark"] [style*="background:#fff"],
+[data-bs-theme="dark"] [style*="background:#e8f9ff"],
+[data-bs-theme="dark"] [style*="color:#0b3b58"],
+[data-bs-theme="dark"] [style*="color:#046f95"] {
+  background: #071018 !important;
+  color: #e6f1ff !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.65), 0 3px 8px rgba(0,0,0,.5) !important;
+}
 
+/* Keep header jumbotron image visible in dark mode */
+[data-bs-theme="dark"] header {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+[data-bs-theme="dark"] header img {
+  opacity: 1 !important;
+  background: transparent !important;
+}
+
+[data-bs-theme="dark"] button,
+[data-bs-theme="dark"] label {
+  background: linear-gradient(135deg,#019dd5,#00bfff) !important;
+  color: #fff !important;
+}
+
+[data-bs-theme="dark"] input,
+[data-bs-theme="dark"] textarea {
+  background: rgba(255,255,255,0.02) !important;
+  color: #e6f1ff !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* use the variables instead of inline hex colors */
+body{
+  background: var(--app-bg);
+  color: var(--app-text);
+}
 
 /* Box-sizing changed to border-box for making box model layout calculations easier. */
 * {
@@ -30,8 +73,8 @@ body {
     margin: 0; /* Removes default margin which helps own layout applications */
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
     /* Font stack with many types of fonts acting as backup fonts. First functional one takes priority by browser */
-    background: #f0f4f8; /* Applies a light background to the website */
-    color: #333; /* main text colour */
+    background: var(--app-bg); /* Applies a light background to the website */
+    color: var(--app-text); /* main text colour */
     line-height: 1.6; /* Supports readability by adding space between the lines */
 }
 
@@ -40,4 +83,25 @@ button:focus,
 input:focus {
     outline: 3px solid var(--ring);
     outline-offset: 2px
+}
+
+/* section cards */
+.section-card{
+  background: var(--card-bg);
+  color: var(--app-text);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.04);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+/* Dark-mode: grid header, day boxes, action buttons */
+[data-bs-theme="dark"] [style*="grid-template-columns"] {
+  background: rgba(255,255,255,0.03) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+[data-bs-theme="dark"] #rows button[role="checkbox"][aria-checked="true"] {
+  background: linear-gradient(135deg,#019dd5,#00bfff) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(1,77,130,0.45) !important;
 }
